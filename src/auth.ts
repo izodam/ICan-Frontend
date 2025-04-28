@@ -53,6 +53,20 @@ export const {
         if (!credentials) return null;
         const { email, password } = credentials;
 
+        if (process.env.NEXT_PUBLIC_API_MOCK === 'enabled') {
+          // ✨ Mock 모드면 서버 요청 없이 바로 성공 응답 리턴
+          if (email === 'test@example.com' && password === '1q2w3e4r!') {
+            return {
+              id: 1,
+              name: '테스트계정',
+              email: 'test@example.com',
+              accessToken: 'mocked-access-token',
+              refreshToken: 'mocked-refresh-token',
+            };
+          }
+          return null;
+        }
+
         try {
           const response = await fetch(
             `${process.env.BACKEND_API_URL}/auth/login`,

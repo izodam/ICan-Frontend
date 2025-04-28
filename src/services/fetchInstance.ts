@@ -64,6 +64,12 @@ export const fetchInstance = async <T>(options: {
 
     let baseUrl = `${BASEURL[base]}${url}`;
 
+    if (process.env.NEXT_PUBLIC_API_MOCK === 'enabled') {
+      if (base === 'BACKEND') {
+        baseUrl = `http://localhost:3000${url}`;
+      }
+    }
+
     if (params) {
       const searchParams = new URLSearchParams(
         Object.entries(params).map(([key, value]) => [key, String(value)]),

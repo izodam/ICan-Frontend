@@ -6,6 +6,7 @@ import { Toaster } from 'sonner';
 import ClientProvider from '@/components/common/ClientProvider';
 import { getThemeColor, getThemeDark, getThemeMode } from '@/services/theme';
 import ThemeProvider from '@/components/common/ThemeProvider';
+import { initMsw } from '@/mocks';
 
 const pretendard = localFont({
   src: '../../public/fonts/PretendardVariable.woff2',
@@ -26,6 +27,9 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  if (typeof window === 'undefined') {
+    await initMsw();
+  }
   const themeMode = await getThemeMode();
   const themeDark = await getThemeDark();
   const themeColor = await getThemeColor();
