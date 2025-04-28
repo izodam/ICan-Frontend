@@ -15,9 +15,7 @@ export default function ClientProvider({ children }: { children: ReactNode }) {
       setMswReady(true);
     };
 
-    if (!mswReady) {
-      init();
-    }
+    init();
   }, [mswReady]);
   const [queryClient] = useState(
     () =>
@@ -29,6 +27,10 @@ export default function ClientProvider({ children }: { children: ReactNode }) {
         },
       }),
   );
+
+  if (!mswReady) {
+    return null;
+  }
 
   return (
     <QueryClientProvider client={queryClient}>

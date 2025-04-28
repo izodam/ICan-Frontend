@@ -1,3 +1,7 @@
-import { http, HttpResponse } from 'msw';
+import { todoHandlers } from './handlers/todoHandlers';
 
-export const handlers = [];
+export const handlers = [
+  ...todoHandlers,
+  // ...authHandlers,
+  // ...userHandlers,
+];
